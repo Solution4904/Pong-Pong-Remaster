@@ -3,14 +3,12 @@ using UnityEngine;
 namespace Solution {
     public class GameManager : MonoBehaviour_Singleton<GameManager> {
         #region Variable
-        public GameLevel GameLevel { get; private set; }
-
         [SerializeField] private GameObject Ball;
         #endregion
 
         #region Life Cycle
         private void Awake() {
-            CreateBall();
+            Init();
         }
 
         private void Start() {
@@ -19,17 +17,18 @@ namespace Solution {
         #endregion
 
         #region Essential Function
-        private void CreateBall() {
-            int n = (int)GameLevel > 0 ? 5 : 3;
-            for (int i = 0; i < n; i++) {
-                Ball.GetComponent<Ball>().SetType((ColorType)i);
-                ObjectPooling.instance.RequestPooling(Ball, (ColorType)i, 20);
-            }
+        private void Init() {
+            CreateBall();
         }
         #endregion
 
         #region Definition Function
-
+        private void CreateBall() {
+            for (int i = 0; i < 3; i++) {
+                Ball.GetComponent<Ball>().SetColor((eColorType)i);
+                ObjectPooling.instance.RequestPooling(Ball, (eColorType)i, 20);
+            }
+        }
         #endregion
     }
 }
