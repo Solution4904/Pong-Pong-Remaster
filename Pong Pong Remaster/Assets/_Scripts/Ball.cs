@@ -3,9 +3,9 @@ using UnityEngine;
 namespace Solution {
     public class Ball : MonoBehaviour {
         #region Variable
-        [SerializeField] private ColorType colorType;
+        public eColorType BallColor;
+        
         [SerializeField] private Sprite[] spriteArray;
-
         private SpriteRenderer spriteRenderer;
         #endregion
 
@@ -27,17 +27,16 @@ namespace Solution {
         private void Init() {
             SetSprite();
         }
-
-        private void SetSprite() {
-            spriteRenderer.sprite = spriteArray[(int)colorType];
-        }
-        public void SetType(ColorType type) {
-            colorType = type;
-        }
         #endregion
 
         #region Definition Function
+        private void SetSprite() {
+            spriteRenderer.sprite = spriteArray[(int)BallColor];
+        }
 
+        public void SetColor(eColorType type) {
+            BallColor = type;
+        }
         #endregion
     }
 }

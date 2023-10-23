@@ -4,7 +4,7 @@ using UnityEngine.UI;
 namespace Solution {
     public class TouchButton : MonoBehaviour {
         #region Variable
-        public ColorType ColorType;
+        public eColorType ColorType;
         private Button button;
         #endregion
 
@@ -30,10 +30,11 @@ namespace Solution {
 
         #region Definition Function
         private void TouchEvent() {
-            bool correct = SpawnManager.instance.CheckTheBottomBallType(ColorType);
+            bool correct = BallSpawner.instance.CheckTheBottomBallType(ColorType);
 
             if (correct) {
-                SpawnManager.instance.DequeueSpawnedBall();
+                BallSpawner.instance.DequeueSpawnedBallObject();
+                BallSpawner.instance.DequeueSpawnedBallOfColor();
             }
         }
         #endregion

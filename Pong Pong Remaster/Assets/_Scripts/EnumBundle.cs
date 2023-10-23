@@ -1,11 +1,11 @@
 namespace Solution {
-    public enum ColorType {
+    public enum eColorType {
         Red,
         Orange,
         Green,
     }
 
-    public enum GameLevel {
+    public enum eGameLevel {
         Easy,
         Hard
     }

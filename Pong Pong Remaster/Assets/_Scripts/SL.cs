@@ -14,6 +14,7 @@
  * 2023-05-11 : Modify 'Singleton' -> 'MonoBehaviour_Singleton'
  * 2023-05-11 : Add 'Singleton' (Non MonoBehaviour)
  * 2023-07-10 : Modify 'Color Log' From 'Action' to 'Function'
+ * 2023-10-23 : Modify Class Name to 'SL'
 */
 // -------------------------------------------------- //
 
@@ -32,7 +33,7 @@ public enum LogColor {
     Brown
 }
 
-public class SolutionLibrary {
+public class SL {
     /// <summary>
     /// 로그를 색상으로 표현.
     /// </summary>
