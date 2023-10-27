@@ -9,4 +9,14 @@ namespace Solution {
         Easy,
         Hard
     }
+
+    public enum eTimerState {
+        Idle,
+        Activate,
+        Deactivate
+    }
+
+    public enum ePanelType {
+        Result,
+    }
 }

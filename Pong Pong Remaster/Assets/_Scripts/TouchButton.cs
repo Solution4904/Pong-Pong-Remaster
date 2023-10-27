@@ -5,7 +5,7 @@ namespace Solution {
     public class TouchButton : MonoBehaviour {
         #region Variable
         public eColorType ColorType;
-        private Button button;
+        private Button _button;
         #endregion
 
         #region Life Cycle
@@ -20,11 +20,11 @@ namespace Solution {
 
         #region Essential Function
         private void Caching() {
-            button = GetComponent<Button>();
+            _button = GetComponent<Button>();
         }
 
         private void Init() {
-            button.onClick.AddListener(TouchEvent);
+            _button.onClick.AddListener(TouchEvent);
         }
         #endregion
 
@@ -35,6 +35,9 @@ namespace Solution {
             if (correct) {
                 BallSpawner.instance.DequeueSpawnedBallObject();
                 BallSpawner.instance.DequeueSpawnedBallOfColor();
+
+                GameManager.instance.GetScore();
+                GameManager.instance.GetCombo();
             }
         }
         #endregion

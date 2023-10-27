@@ -5,8 +5,8 @@ namespace Solution {
         #region Variable
         public eColorType BallColor;
         
-        [SerializeField] private Sprite[] spriteArray;
-        private SpriteRenderer spriteRenderer;
+        [SerializeField] private Sprite[] _spriteArray;
+        private SpriteRenderer _spriteRenderer;
         #endregion
 
         #region Life Cycle
@@ -21,7 +21,7 @@ namespace Solution {
 
         #region Essential Function
         private void Caching() {
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         private void Init() {
@@ -31,7 +31,7 @@ namespace Solution {
 
         #region Definition Function
         private void SetSprite() {
-            spriteRenderer.sprite = spriteArray[(int)BallColor];
+            _spriteRenderer.sprite = _spriteArray[(int)BallColor];
         }
 
         public void SetColor(eColorType type) {
