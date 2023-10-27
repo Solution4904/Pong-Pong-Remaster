@@ -1,9 +1,14 @@
-using UnityEngine;
-
 namespace Solution {
     public class GameManager : MonoBehaviour_Singleton<GameManager> {
         #region Variable
-        [SerializeField] private GameObject Ball;
+        public BallSpawner BallSpawner;
+        public ScoreSystem ScoreSystem;
+        public ComboSystem ComboSystem;
+        public Timer Timer;
+
+        public int Score { get; private set; }
+        public int Combo { get; private set; }
+        public float Time { get; private set; } = 5f;
         #endregion
 
         #region Life Cycle
@@ -12,22 +17,43 @@ namespace Solution {
         }
 
         private void Start() {
-
+            Init();
         }
         #endregion
 
         #region Essential Function
         private void Init() {
-            CreateBall();
+            GameStart();
         }
         #endregion
 
         #region Definition Function
-        private void CreateBall() {
-            for (int i = 0; i < 3; i++) {
-                Ball.GetComponent<Ball>().SetColor((eColorType)i);
-                ObjectPooling.instance.RequestPooling(Ball, (eColorType)i, 20);
-            }
+        public void GameStart() {
+            Timer.SetTimer(Time, null, GameOver);
+            Timer.TimerControl(eTimerState.Activate);
+
+            BallSpawner.CreateBall();
+            /*
+             * 1. 시간 설정
+             * 2. 공 생성
+             * 3. 게임 시작 대기 타이머
+             * 3. 대기 시간 이후 게임 시작
+             */
+
+        }
+
+        public void GameOver() {
+            UIManager.instance.ShowPanel(ePanelType.Result);
+        }
+
+        public void GetScore(int score = 100) {
+            Score += score;
+            ScoreSystem.SetScore(Score);
+        }
+
+        public void GetCombo(int combo = 1) {
+            Combo += combo;
+            ComboSystem.SetCombo(Combo);
         }
         #endregion
     }

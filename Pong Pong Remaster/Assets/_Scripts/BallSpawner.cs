@@ -6,13 +6,14 @@ using UnityEngine;
 namespace Solution {
     public class BallSpawner : MonoBehaviour_Singleton<BallSpawner> {
         #region Variable
-        private GameObject spawnObject = null;
-        private Transform[] spawnPositions;
-        private Queue<GameObject> spawnedBallObject = new Queue<GameObject>();
-        private Queue<eColorType> spawnedBallOfColor = new Queue<eColorType>();
+        [SerializeField] private GameObject _ball;
+        private GameObject _spawnObject = null;
+        private Transform[] _spawnPositions;
+        private Queue<GameObject> _spawnedBallObject = new Queue<GameObject>();
+        private Queue<eColorType> _spawnedBallOfColor = new Queue<eColorType>();
 
-        private IEnumerator spawnCoroutine = null;
-        private WaitForSeconds spawnDelay = new WaitForSeconds(1f);
+        private IEnumerator _spawnCoroutine = null;
+        private WaitForSeconds _spawnDelay = new WaitForSeconds(1f);
         #endregion
 
         #region Life Cycle
@@ -23,41 +24,42 @@ namespace Solution {
         private void Start() {
             Init();
         }
-
-        private void Update() {
-            if (Input.GetKeyDown(KeyCode.Space)) {
-                SpawnBall();
-            }
-        }
         #endregion
 
         #region Essential Function
         private void Caching() {
-            spawnPositions = transform.GetComponentsInChildren<Transform>();
-            spawnCoroutine = Spawn();
+            _spawnPositions = transform.GetComponentsInChildren<Transform>();
+            _spawnCoroutine = Spawn();
         }
 
         private void Init() {
-            StartCoroutine(spawnCoroutine);
+            StartCoroutine(_spawnCoroutine);
         }
         #endregion
 
         #region Definition Function
+        public void CreateBall() {
+            for (int i = 0; i < 3; i++) {
+                _ball.GetComponent<Ball>().SetColor((eColorType)i);
+                ObjectPooling.instance.RequestPooling(_ball, (eColorType)i, 20);
+            }
+        }
+
         public bool CheckTheBottomBallType(eColorType type) {
-            return type == spawnedBallObject.Peek().GetComponent<Ball>().BallColor;
+            return type == _spawnedBallObject.Peek().GetComponent<Ball>().BallColor;
         }
 
         public void DequeueSpawnedBallObject() {
-            GameObject obj = spawnedBallObject.Dequeue();
+            GameObject obj = _spawnedBallObject.Dequeue();
             obj.SetActive(false);
         }
 
         public void DequeueSpawnedBallOfColor() {
-            spawnedBallOfColor.Dequeue();
+            _spawnedBallOfColor.Dequeue();
         }
 
         public void EnqueueSpawnedBallOfColor(eColorType type) {
-            spawnedBallOfColor.Enqueue(type);
+            _spawnedBallOfColor.Enqueue(type);
         }
 
         private eColorType RandomColorNumber() {
@@ -72,14 +74,14 @@ namespace Solution {
             eColorType randomColor = RandomColorNumber();
             EnqueueSpawnedBallOfColor(randomColor);
 
-            spawnObject = ObjectPooling.instance.PopObject(randomColor);
-            spawnObject.transform.position = spawnedBallObject.Count % 2 > 0 ? spawnPositions[1].position : spawnPositions[2].position;
-            spawnObject.SetActive(true);
-            spawnedBallObject.Enqueue(spawnObject);
+            _spawnObject = ObjectPooling.instance.PopObject(randomColor);
+            _spawnObject.transform.position = _spawnedBallObject.Count % 2 > 0 ? _spawnPositions[1].position : _spawnPositions[2].position;
+            _spawnObject.SetActive(true);
+            _spawnedBallObject.Enqueue(_spawnObject);
         }
 
         private bool CheckCountInStage() {
-            return spawnedBallObject.Count < 8;
+            return _spawnedBallObject.Count < 8;
         }
 
         private IEnumerator Spawn() {
@@ -87,7 +89,7 @@ namespace Solution {
                 if (CheckCountInStage()) {
                     SpawnBall();
                 }
-                yield return spawnDelay;
+                yield return _spawnDelay;
             }
         }
         #endregion

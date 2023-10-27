@@ -161,7 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad96ad922f4c0e42943b4d0e2814d34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteArray:
+  BallColor: 2
+  _spriteArray:
   - {fileID: 21300000, guid: 6588acb7e68f7cf49bb26afffc65f22f, type: 3}
   - {fileID: 21300000, guid: ba8fcd6265bce40489d7c62b4f53528b, type: 3}
   - {fileID: 21300000, guid: fcf14bd059a688848a3d1d4df314b0a6, type: 3}
