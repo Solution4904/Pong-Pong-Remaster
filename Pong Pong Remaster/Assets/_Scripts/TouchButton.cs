@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Solution {
+namespace Sol {
     public class TouchButton : MonoBehaviour {
         #region Variable
         public eColorType ColorType;
@@ -38,6 +38,8 @@ namespace Solution {
 
                 GameManager.instance.GetScore();
                 GameManager.instance.GetCombo();
+            } else {
+                GameManager.instance.ResetCombo();
             }
         }
         #endregion

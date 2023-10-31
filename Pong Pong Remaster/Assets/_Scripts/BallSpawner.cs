@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-namespace Solution {
+namespace Sol {
     public class BallSpawner : MonoBehaviour_Singleton<BallSpawner> {
         #region Variable
         [SerializeField] private GameObject _ball;

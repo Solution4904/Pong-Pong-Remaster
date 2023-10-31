@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Solution {
+namespace Sol {
     public class Ball : MonoBehaviour {
         #region Variable
         public eColorType BallColor;
