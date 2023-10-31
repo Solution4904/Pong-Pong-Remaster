@@ -1,4 +1,4 @@
-namespace Solution {
+namespace Sol {
     public class GameManager : MonoBehaviour_Singleton<GameManager> {
         #region Variable
         public BallSpawner BallSpawner;
@@ -53,7 +53,11 @@ namespace Solution {
 
         public void GetCombo(int combo = 1) {
             Combo += combo;
-            ComboSystem.SetCombo(Combo);
+            ComboSystem.PopComboText(Combo);
+        }
+
+        public void ResetCombo() {
+            Combo = 0;
         }
         #endregion
     }

@@ -1,11 +1,10 @@
 using System;
-using TMPro;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Solution {
+namespace Sol {
     /*
      * 
      * 01. Called 'SetTimer(time, successAction, failAction)'

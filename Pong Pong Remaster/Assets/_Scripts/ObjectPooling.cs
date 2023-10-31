@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Solution {
+namespace Sol {
     public class ObjectPooling : MonoBehaviour_Singleton<ObjectPooling> {
         #region Variable
         private Dictionary<Enum, Transform> _parentTransformDic = new Dictionary<Enum, Transform>();

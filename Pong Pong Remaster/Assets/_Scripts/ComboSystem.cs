@@ -1,30 +1,28 @@
-using TMPro;
+using DamageNumbersPro;
 using UnityEngine;
 
-public class ComboSystem : MonoBehaviour {
-    #region Variable
-    [SerializeField] private TextMeshProUGUI _comboText;
-    #endregion
+namespace Sol {
+    public class ComboSystem : MonoBehaviour {
+        #region Variable
+        [SerializeField] private RectTransform _parent;
+        [SerializeField] private DamageNumber _comboTextPrefab;
+        private DamageNumber _comboText;
+        #endregion
 
-    #region Life Cycle
-    private void Start() {
-        Init();
-    }
-    #endregion
+        #region Life Cycle
 
-    #region Essential Function
-    private void Init() {
-        ResetCombo();
-    }
-    #endregion
+        #endregion
 
-    #region Definition Function
-    public void SetCombo(int combo) {
-        _comboText.text = $"{combo}";
-    }
+        #region Essential Function
 
-    public void ResetCombo() {
-        _comboText.text = "0";
+        #endregion
+
+        #region Definition Function
+        public void PopComboText(int combo) {
+            _comboText = _comboTextPrefab.Spawn(Vector3.zero);
+            _comboText.leftText = combo.ToString();
+            _comboText.SetAnchoredPosition(_parent, Vector2.zero);
+        }
+        #endregion
     }
-    #endregion
 }

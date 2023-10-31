@@ -1,4 +1,4 @@
-namespace Solution {
+namespace Sol {
     public enum eColorType {
         Red,
         Orange,
@@ -18,5 +18,9 @@ namespace Solution {
 
     public enum ePanelType {
         Result,
+    }
+
+    public enum eObjectType {
+        ComboText,
     }
 }
