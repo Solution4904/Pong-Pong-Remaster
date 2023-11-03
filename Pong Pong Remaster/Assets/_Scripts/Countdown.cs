@@ -22,13 +22,7 @@ namespace Sol {
         }
 
         private void Start() {
-
-        }
-
-        private void Update() {
-            if (Input.GetMouseButtonDown(0)) {
-                StartCoroutine(IncreasingAndDecreasingEffectToText());
-            }
+            Init();
         }
         #endregion
 
@@ -39,7 +33,7 @@ namespace Sol {
         }
 
         private void Init() {
-
+            _countDownText.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
         }
         #endregion
 

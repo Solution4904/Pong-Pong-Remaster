@@ -42,9 +42,9 @@ namespace Sol {
             Init();
         }
 
-        private void OnDestroy() {
-            StreamDispose();
-        }
+        //private void OnDestroy() {
+        //    StreamDispose();
+        //}
         #endregion
 
         #region Essential Function
@@ -176,6 +176,14 @@ namespace Sol {
         /// <returns></returns>
         private string ConvertTime(float time) {
             return TimeSpan.FromSeconds(time).ToString(@"mm\:ss");
+        }
+
+        public void PlusTime(float time) {
+            _timeValue += time;
+
+            SL.Log($"PlusTime\n추가 전 : {_timeValue}");
+            SL.Log($"PlusTime\n추가 시간 : {time}");
+            SL.Log($"PlusTime\n추가 후 : {_timeValue}");
         }
         #endregion
     }
