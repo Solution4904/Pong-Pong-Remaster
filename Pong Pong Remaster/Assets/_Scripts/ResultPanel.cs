@@ -5,8 +5,6 @@ using UnityEngine.UI;
 namespace Sol {
     public class ResultPanel : MonoBehaviour {
         #region Variable
-        private RectTransform _rect;
-
         [SerializeField] private TextMeshProUGUI _score;
         [SerializeField] private Button[] _buttons;
         #endregion
@@ -27,15 +25,12 @@ namespace Sol {
 
         #region Essesntial Function
         private void Caching() {
-            _rect = GetComponent<RectTransform>();
-
             _buttons[0].onClick.AddListener(() => { });
             _buttons[1].onClick.AddListener(() => { });
         }
 
         private void Init() {
             gameObject.SetActive(false);
-            _rect.anchoredPosition = Vector2.zero;
         }
         #endregion
 

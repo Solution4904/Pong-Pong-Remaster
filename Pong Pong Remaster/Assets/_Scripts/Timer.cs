@@ -180,10 +180,6 @@ namespace Sol {
 
         public void PlusTime(float time) {
             _timeValue += time;
-
-            SL.Log($"PlusTime\n추가 전 : {_timeValue}");
-            SL.Log($"PlusTime\n추가 시간 : {time}");
-            SL.Log($"PlusTime\n추가 후 : {_timeValue}");
         }
         #endregion
     }

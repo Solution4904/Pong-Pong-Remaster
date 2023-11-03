@@ -8,7 +8,7 @@ namespace Sol {
         private Queue<Transform> _roadPointQueue;
         private Vector3 _direction;
         private Transform _destination;
-        private float _speed = 3f;
+        private float _speed = 5f;
         public eColorType BallColor;
         private bool _goForword = true;
 

@@ -5,6 +5,7 @@ namespace Sol {
         public ScoreSystem ScoreSystem;
         public ComboSystem ComboSystem;
         public Timer Timer;
+        public Countdown Countdown;
 
         public int Score { get; private set; }
         public int Combo { get; private set; }
@@ -33,6 +34,7 @@ namespace Sol {
             Timer.TimerControl(eTimerState.Activate);
 
             BallSpawner.CreateBall();
+            Countdown.StartCountDown(3);
             /*
              * 1. 시간 설정
              * 2. 공 생성
