@@ -1,4 +1,4 @@
-using System;
+using DG.Tweening;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -6,57 +6,62 @@ using UnityEngine;
 namespace Sol {
     public class Countdown : MonoBehaviour {
         #region Variable
-        private IEnumerator CountingCoroutine;
-        private WaitForSeconds _waitTime;
-        private Action _action;
-
+        // # Components
         [SerializeField] private TextMeshProUGUI _countDownText;
-        private float _originSize, _increasingSize;
+
+        // # Values
+        private float _waitTime;
+        private Sequence _countDownTextSequence;
+
+        public Ease ease;
         #endregion
 
         #region Life Cycle
-        private void Awake() {
-            Caching();
-
-            CountingCoroutine = Counting();
-        }
-
         private void Start() {
             Init();
         }
+
+        //public void Update() {
+        //    if (Input.GetMouseButtonDown(1)) {
+        //        _countDownTextSequence.SetEase(ease);
+        //        _countDownTextSequence.Play();
+        //    }
+        //}
         #endregion
 
         #region Essential Function
-        private void Caching() {
-            _originSize = _countDownText.fontSize;
-            _increasingSize = (_originSize * 0.5f) + _originSize;
-        }
-
         private void Init() {
             _countDownText.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+            _countDownTextSequence = DOTween.Sequence()
+                .Append(_countDownText.transform.DOScale(new Vector3(2, 2, 2), 0.5f))
+                .Append(_countDownText.transform.DOScale(Vector3.one, 0.5f))
+                .SetLoops(-1)
+                .SetEase(Ease.OutSine);
         }
         #endregion
 
         #region Definition Function
-        public void StartCountDown(float time, Action action) {
-            _waitTime = new WaitForSeconds(time);
-            _action = action;
-            StartCoroutine(CountingCoroutine);
+        public void StartCountDown(float time) {
+            _waitTime = time;
+            StartCoroutine(Counting());
         }
 
         private IEnumerator Counting() {
             yield return null;
-        }
+            UIManager.instance.BlockingScreen(true);
 
-        private IEnumerator IncreasingAndDecreasingEffectToText() {
-            while (_countDownText.fontSize < _increasingSize) {
-                _countDownText.fontSize += 3.0f;
-                yield return null;
+            _countDownTextSequence.Play();
+            float divideTime = _waitTime;
+            while (divideTime > 0) {
+                _countDownText.text = divideTime.ToString();
+
+                yield return new WaitForSeconds(1);
+                divideTime--;
             }
-            while (_countDownText.fontSize > _originSize) {
-                _countDownText.fontSize -= 3.0f;
-                yield return null;
-            }
+            _countDownTextSequence.Kill();
+
+            _countDownText.gameObject.SetActive(false);
+            UIManager.instance.BlockingScreen(false);
         }
         #endregion
     }

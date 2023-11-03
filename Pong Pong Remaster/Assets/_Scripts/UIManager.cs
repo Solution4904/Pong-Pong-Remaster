@@ -7,6 +7,7 @@ namespace Sol {
         private GameObject _currentPanel;
         private Stack<GameObject> _panelStack = new();
         [SerializeField] private GameObject _resultPanel;
+        [SerializeField] private GameObject _blockingPanel;
         #endregion
 
         #region Life Cycle
@@ -15,12 +16,17 @@ namespace Sol {
         }
 
         private void Start() {
-
+            Init();
         }
         #endregion
 
         #region Essential Function
+        private void Init() {
+            BlockingScreen(false);
 
+            _resultPanel.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+            _blockingPanel.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        }
         #endregion
 
         #region Definition Function
@@ -37,6 +43,10 @@ namespace Sol {
 
         public void HidePanel() {
             _panelStack.Pop().SetActive(false);
+        }
+
+        public void BlockingScreen(bool activate) {
+            _blockingPanel.SetActive(activate);
         }
         #endregion
     }

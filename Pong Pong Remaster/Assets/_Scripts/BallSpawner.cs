@@ -12,7 +12,7 @@ namespace Sol {
         private Queue<eColorType> _spawnedBallOfColor = new Queue<eColorType>();
 
         private IEnumerator _spawnCoroutine = null;
-        private WaitForSeconds _spawnDelay = new WaitForSeconds(1f);
+        private WaitForSeconds _spawnDelay = new WaitForSeconds(0.3f);
         #endregion
 
         #region Life Cycle
