@@ -8,7 +8,7 @@ namespace Sol {
 
         public int Score { get; private set; }
         public int Combo { get; private set; }
-        public float Time { get; private set; } = 5f;
+        public float Time { get; private set; } = 10;
         #endregion
 
         #region Life Cycle

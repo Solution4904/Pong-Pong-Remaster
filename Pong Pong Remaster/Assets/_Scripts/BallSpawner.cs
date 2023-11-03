@@ -6,8 +6,8 @@ namespace Sol {
     public class BallSpawner : MonoBehaviour_Singleton<BallSpawner> {
         #region Variable
         [SerializeField] private GameObject _ball;
-        private GameObject _spawnObject = null;
-        private Transform[] _spawnPositions;
+        [SerializeField] private Transform _spawnTransform;
+        private GameObject _spawnObject;
         private Queue<GameObject> _spawnedBallObject = new Queue<GameObject>();
         private Queue<eColorType> _spawnedBallOfColor = new Queue<eColorType>();
 
@@ -27,7 +27,6 @@ namespace Sol {
 
         #region Essential Function
         private void Caching() {
-            _spawnPositions = transform.GetComponentsInChildren<Transform>();
             _spawnCoroutine = Spawn();
         }
 
@@ -74,20 +73,15 @@ namespace Sol {
             EnqueueSpawnedBallOfColor(randomColor);
 
             _spawnObject = ObjectPooling.instance.PopObject(randomColor);
-            _spawnObject.transform.position = _spawnedBallObject.Count % 2 > 0 ? _spawnPositions[1].position : _spawnPositions[2].position;
+            _spawnObject.transform.position = _spawnTransform.position;
             _spawnObject.SetActive(true);
             _spawnedBallObject.Enqueue(_spawnObject);
         }
 
-        private bool CheckCountInStage() {
-            return _spawnedBallObject.Count < 8;
-        }
-
         private IEnumerator Spawn() {
             while (true) {
-                if (CheckCountInStage()) {
-                    SpawnBall();
-                }
+                SpawnBall();
+
                 yield return _spawnDelay;
             }
         }
