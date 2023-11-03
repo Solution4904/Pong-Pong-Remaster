@@ -59,6 +59,10 @@ namespace Sol {
         public void ResetCombo() {
             Combo = 0;
         }
+
+        public void PlusTime(float time = 1f) {
+            Timer.PlusTime(time);
+        }
         #endregion
     }
 }
