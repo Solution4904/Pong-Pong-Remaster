@@ -8,7 +8,7 @@ namespace Sol {
         private Queue<Transform> _roadPointQueue;
         private Vector3 _direction;
         private Transform _destination;
-        private float _speed = 5f;
+        private float _speed = 3f;//5f;
         public eColorType BallColor;
         private bool _goForword = true;
 
@@ -24,9 +24,13 @@ namespace Sol {
             Caching();
         }
 
-        private void Start() {
+        private void OnEnable() {
             Init();
         }
+
+        //private void Start() {
+        //    Init();
+        //}
 
         private void FixedUpdate() {
             Move();
@@ -35,10 +39,12 @@ namespace Sol {
 
         #region Essential Function
         private void Init() {
+            _spriteRenderer.sprite = _colorSprites[(int)BallColor];
+            _goForword = true;
+            _roadPointQueue = null;
+
             SetRoadPointQueue();
             SetNextDestinationAndDirection();
-
-            _spriteRenderer.sprite = _colorSprites[(int)BallColor];
         }
 
         private void Caching() {
