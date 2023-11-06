@@ -13,10 +13,6 @@ namespace Sol {
         #endregion
 
         #region Life Cycle
-        private void Awake() {
-            Init();
-        }
-
         private void Start() {
             Init();
         }
