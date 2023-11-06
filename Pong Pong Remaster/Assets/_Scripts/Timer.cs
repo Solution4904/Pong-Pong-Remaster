@@ -1,4 +1,7 @@
+using DG.Tweening;
 using System;
+using System.Collections;
+using TMPro;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -27,6 +30,8 @@ namespace Sol {
      */
     public class Timer : MonoBehaviour {
         #region Variable
+        [SerializeField] private TextMeshProUGUI _plusTimeText;
+        private RectTransform _plusTimeRect;
         [SerializeField] private Slider _timerSlider;
         private float _timeValue;
 
@@ -38,8 +43,18 @@ namespace Sol {
         #endregion
 
         #region Life Cycle
+        private void Awake() {
+            Caching();
+        }
+
         private void Start() {
             Init();
+        }
+
+        private void Update() {
+            if (Input.GetMouseButtonDown(1)) {
+                PlusTime(1);
+            }
         }
 
         //private void OnDestroy() {
@@ -48,9 +63,15 @@ namespace Sol {
         #endregion
 
         #region Essential Function
+        private void Caching() {
+            _plusTimeRect = _plusTimeText.GetComponent<RectTransform>();
+        }
+
         private void Init() {
             SubscribeTimeValue();
             SubscribeUpdateUI();
+
+            _plusTimeText.gameObject.SetActive(false);
         }
         #endregion
 
@@ -180,6 +201,23 @@ namespace Sol {
 
         public void PlusTime(float time) {
             _timeValue += time;
+            _plusTimeText.text = time.ToString();
+            StartCoroutine(PlusTimeEffect());
+        }
+
+        private IEnumerator PlusTimeEffect() {
+            _plusTimeText.gameObject.SetActive(true);
+
+
+            //Vector2 temp = new Vector2(_plusTimeRect.rect.x, _plusTimeRect.rect.y + 15);
+            //_plusTimeRect.DOJumpAnchorPos(temp, 10, 1, 1)
+            //    .OnComplete(() => { _plusTimeText.gameObject.SetActive(false); });
+
+            _plusTimeText.transform.DOLocalJump(_plusTimeText.transform.localPosition, 30, 1, 0.5f)
+                .OnComplete(() => { _plusTimeText.gameObject.SetActive(false); });
+
+
+            yield return null;
         }
         #endregion
     }
