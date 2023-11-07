@@ -3243,6 +3243,7 @@ GameObject:
   - component: {fileID: 1592645788}
   - component: {fileID: 1592645790}
   - component: {fileID: 1592645789}
+  - component: {fileID: 1592645791}
   m_Layer: 5
   m_Name: PlusText
   m_TagString: Untagged
@@ -3316,8 +3317,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3366,6 +3367,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1592645787}
   m_CullTransparentMesh: 1
+--- !u!225 &1592645791
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592645787}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1608534169
 GameObject:
   m_ObjectHideFlags: 0

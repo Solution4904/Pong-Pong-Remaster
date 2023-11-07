@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System;
-using System.Collections;
 using TMPro;
 using UniRx;
 using UniRx.Triggers;
@@ -31,7 +30,10 @@ namespace Sol {
     public class Timer : MonoBehaviour {
         #region Variable
         [SerializeField] private TextMeshProUGUI _plusTimeText;
-        private RectTransform _plusTimeRect;
+        private Vector3 _plusTimeTextOriginPos;
+
+        private Sequence _plusTimeTweeningSequnce;
+
         [SerializeField] private Slider _timerSlider;
         private float _timeValue;
 
@@ -51,12 +53,6 @@ namespace Sol {
             Init();
         }
 
-        private void Update() {
-            if (Input.GetMouseButtonDown(1)) {
-                PlusTime(1);
-            }
-        }
-
         //private void OnDestroy() {
         //    StreamDispose();
         //}
@@ -64,14 +60,15 @@ namespace Sol {
 
         #region Essential Function
         private void Caching() {
-            _plusTimeRect = _plusTimeText.GetComponent<RectTransform>();
+            _plusTimeTextOriginPos = _plusTimeText.transform.localPosition;
         }
 
         private void Init() {
+            _plusTimeText.gameObject.SetActive(false);
             SubscribeTimeValue();
             SubscribeUpdateUI();
 
-            _plusTimeText.gameObject.SetActive(false);
+            SetPlusTimeAnimationSequnce();
         }
         #endregion
 
@@ -199,25 +196,28 @@ namespace Sol {
             return TimeSpan.FromSeconds(time).ToString(@"mm\:ss");
         }
 
-        public void PlusTime(float time) {
-            _timeValue += time;
-            _plusTimeText.text = time.ToString();
-            StartCoroutine(PlusTimeEffect());
+        private void SetPlusTimeAnimationSequnce() {
+            _plusTimeTweeningSequnce = DOTween.Sequence()
+                .Append(_plusTimeText.transform.DOLocalJump(_plusTimeText.transform.localPosition, 30, 1, 0.5f))
+                .Join(_plusTimeText.DOFade(0, 0.5f))
+                .OnPlay(() => {
+                    _plusTimeText.transform.localPosition = _plusTimeTextOriginPos;
+                    _plusTimeText.color = Color.white;
+                    _plusTimeText.gameObject.SetActive(true);
+                })
+                .OnComplete(() => {
+                    _plusTimeText.gameObject.SetActive(false);
+                })
+                .SetAutoKill(false)
+                .Pause();
         }
 
-        private IEnumerator PlusTimeEffect() {
-            _plusTimeText.gameObject.SetActive(true);
+        public void PlusTime(float time) {
+            _timeValue += time;
+            _plusTimeText.text = $"+{time}";
 
-
-            //Vector2 temp = new Vector2(_plusTimeRect.rect.x, _plusTimeRect.rect.y + 15);
-            //_plusTimeRect.DOJumpAnchorPos(temp, 10, 1, 1)
-            //    .OnComplete(() => { _plusTimeText.gameObject.SetActive(false); });
-
-            _plusTimeText.transform.DOLocalJump(_plusTimeText.transform.localPosition, 30, 1, 0.5f)
-                .OnComplete(() => { _plusTimeText.gameObject.SetActive(false); });
-
-
-            yield return null;
+            _plusTimeTweeningSequnce.Rewind();
+            _plusTimeTweeningSequnce.Play();
         }
         #endregion
     }
