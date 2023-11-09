@@ -38,7 +38,6 @@ namespace Sol {
 
                 GameManager.instance.GetScore();
                 GameManager.instance.GetCombo();
-                GameManager.instance.PlusTime(0.4f);
             } else {
                 GameManager.instance.ResetCombo();
             }

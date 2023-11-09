@@ -8,7 +8,6 @@ namespace Sol {
         private Queue<Transform> _roadPointQueue;
         private Vector3 _direction;
         private Transform _destination;
-        private float _speed = 3f;//5f;
         public eColorType BallColor;
         private bool _goForword = true;
 
@@ -28,9 +27,9 @@ namespace Sol {
             Init();
         }
 
-        //private void Start() {
-        //    Init();
-        //}
+        private void Start() {
+            _spriteRenderer.sprite = _colorSprites[(int)BallColor];
+        }
 
         private void FixedUpdate() {
             Move();
@@ -39,9 +38,7 @@ namespace Sol {
 
         #region Essential Function
         private void Init() {
-            _spriteRenderer.sprite = _colorSprites[(int)BallColor];
             _goForword = true;
-            _roadPointQueue = null;
 
             SetRoadPointQueue();
             SetNextDestinationAndDirection();
@@ -53,6 +50,10 @@ namespace Sol {
         #endregion
 
         #region Definition Function
+        public void SetColor(eColorType color) {
+            BallColor = color;
+        }
+
         private void SetRoadPointQueue() {
             _roadPointQueue = new Queue<Transform>();
             foreach (Transform point in RoadManager.instance.RoadPoints) {
@@ -62,7 +63,7 @@ namespace Sol {
         private void Move() {
             if (!_goForword) return;
 
-            if (CheckArriveDestination()) transform.localPosition += (_direction * _speed) * Time.deltaTime;
+            if (CheckArriveDestination()) transform.localPosition += (_direction * GameManager.instance.BallSpeed) * Time.deltaTime;
             else SetNextDestinationAndDirection();
         }
 
@@ -76,11 +77,8 @@ namespace Sol {
                 _direction = (_destination.position - transform.localPosition).normalized;
             } else {
                 _goForword = false;
+                GameManager.instance.GameOver();
             }
-        }
-
-        public void SetColor(eColorType color) {
-            BallColor = color;
         }
         #endregion
 
