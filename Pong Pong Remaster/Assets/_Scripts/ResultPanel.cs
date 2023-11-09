@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Sol {
@@ -25,8 +26,8 @@ namespace Sol {
 
         #region Essesntial Function
         private void Caching() {
-            _buttons[0].onClick.AddListener(() => { });
-            _buttons[1].onClick.AddListener(() => { });
+            _buttons[0].onClick.AddListener(() => { SceneManager.LoadScene(0); });
+            _buttons[1].onClick.AddListener(() => { Application.Quit(); });
         }
 
         private void Init() {

@@ -5,14 +5,16 @@ using UnityEngine;
 namespace Sol {
     public class BallSpawner : MonoBehaviour_Singleton<BallSpawner> {
         #region Variable
+        // # Resources
         [SerializeField] private GameObject _ball;
         [SerializeField] private Transform _spawnTransform;
+
         private GameObject _spawnObject;
         private Queue<GameObject> _spawnedBallObject = new Queue<GameObject>();
         private Queue<eColorType> _spawnedBallOfColor = new Queue<eColorType>();
 
         private IEnumerator _spawnCoroutine = null;
-        private WaitForSeconds _spawnDelay = new WaitForSeconds(1f);//new WaitForSeconds(0.3f);
+        private WaitForSeconds _spawnDelay;
         #endregion
 
         #region Life Cycle
@@ -41,6 +43,10 @@ namespace Sol {
                 _ball.GetComponent<Ball>().SetColor((eColorType)i);
                 ObjectPooling.instance.RequestPooling(_ball, (eColorType)i, 20);
             }
+        }
+
+        public void SetSpawnDelay() {
+            _spawnDelay = new WaitForSeconds(GameManager.instance.BallSpawnDelay);
         }
 
         public bool CheckTheBottomBallType(eColorType type) {

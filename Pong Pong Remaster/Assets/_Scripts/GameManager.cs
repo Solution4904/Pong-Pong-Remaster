@@ -1,47 +1,74 @@
+using System.Collections;
+using UnityEngine;
+
 namespace Sol {
     public class GameManager : MonoBehaviour_Singleton<GameManager> {
         #region Variable
-        public BallSpawner BallSpawner;
-        public ScoreSystem ScoreSystem;
-        public ComboSystem ComboSystem;
-        public Timer Timer;
-        public Countdown Countdown;
+        [field: SerializeField] public BallSpawner BallSpawner { get; private set; }
+        [field: SerializeField] public ScoreSystem ScoreSystem { get; private set; }
+        [field: SerializeField] public ComboSystem ComboSystem { get; private set; }
+        [field: SerializeField] public Countdown Countdown { get; private set; }
 
         public int Score { get; private set; }
         public int Combo { get; private set; }
-        public float Time { get; private set; } = 10;
+        private float _ballSpeed = 5;//3;
+        public float BallSpeed {
+            get {
+                return _ballSpeed;
+            }
+            private set {
+                _ballSpeed = value > 8 ? 8 : value;
+            }
+        }
+        private float _ballSpawnDelay = 1;//1.5f;
+        public float BallSpawnDelay {
+            get {
+                return _ballSpawnDelay;
+            }
+            private set {
+                _ballSpawnDelay = value < 0.3f ? 0.3f : value;
+            }
+        }
+
+        private WaitForSeconds _difficultyRisingDelay;
+        private IEnumerator _difficultyChanger;
         #endregion
 
         #region Life Cycle
+        private void Awake() {
+            Caching();
+        }
+
         private void Start() {
             Init();
         }
         #endregion
 
         #region Essential Function
+        private void Caching() {
+            _difficultyRisingDelay = new WaitForSeconds(3);
+            _difficultyChanger = DifficultyChange();
+        }
+
         private void Init() {
             GameStart();
+
+            Time.timeScale = 1; // 임시
         }
         #endregion
 
         #region Definition Function
         public void GameStart() {
-            Timer.SetTimer(Time, null, GameOver);
-            Timer.TimerControl(eTimerState.Activate);
-
+            BallSpawner.SetSpawnDelay();
             BallSpawner.CreateBall();
             Countdown.StartCountDown(3);
-            /*
-             * 1. 시간 설정
-             * 2. 공 생성
-             * 3. 게임 시작 대기 타이머
-             * 3. 대기 시간 이후 게임 시작
-             */
 
+            StartCoroutine(_difficultyChanger);
         }
 
         public void GameOver() {
             UIManager.instance.ShowPanel(ePanelType.Result);
+            Time.timeScale = 0; // 임시
         }
 
         public void GetScore(int score = 100) {
@@ -58,8 +85,14 @@ namespace Sol {
             Combo = 0;
         }
 
-        public void PlusTime(float time = 1f) {
-            Timer.PlusTime(time);
+        private IEnumerator DifficultyChange() {
+            while (true) {
+                yield return _difficultyRisingDelay;
+
+                BallSpeed += 0.2f;
+                BallSpawnDelay -= 0.1f;
+                BallSpawner.SetSpawnDelay();
+            }
         }
         #endregion
     }
