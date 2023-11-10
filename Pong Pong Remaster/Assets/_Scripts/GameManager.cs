@@ -11,7 +11,7 @@ namespace Sol {
 
         public int Score { get; private set; }
         public int Combo { get; private set; }
-        private float _ballSpeed = 5;//3;
+        private float _ballSpeed = 3;
         public float BallSpeed {
             get {
                 return _ballSpeed;
@@ -27,6 +27,7 @@ namespace Sol {
             }
             private set {
                 _ballSpawnDelay = value < 0.3f ? 0.3f : value;
+                BallSpawner.SetSpawnDelay();
             }
         }
 
@@ -91,7 +92,7 @@ namespace Sol {
 
                 BallSpeed += 0.2f;
                 BallSpawnDelay -= 0.1f;
-                BallSpawner.SetSpawnDelay();
+                //BallSpawner.SetSpawnDelay();
             }
         }
         #endregion
