@@ -68,7 +68,7 @@ namespace Sol {
         }
 
         private bool CheckArriveDestination() {
-            return Vector3.Distance(_destination.position, transform.localPosition) > 0.05f;
+            return Vector3.Distance(_destination.position, transform.localPosition) > 0.1f;
         }
 
         private void SetNextDestinationAndDirection() {
