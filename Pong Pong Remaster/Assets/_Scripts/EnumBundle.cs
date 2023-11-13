@@ -1,8 +1,8 @@
 namespace Sol {
-    public enum eColorType {
-        Red,
-        Orange,
-        Green,
+    public enum eEnemyType {
+        BlueSlime,
+        GreenSlime,
+        RedSlime,
     }
 
     public enum eGameLevel {
