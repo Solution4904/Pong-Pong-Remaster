@@ -13,6 +13,7 @@ namespace Sol {
         // # Values
         public int Score { get; private set; }
         public int Combo { get; private set; }
+        public int MaxCombo { get; private set; } = 0;
         private float _enemySpeed = 3;
         public float EnemySpeed {
             get {
@@ -91,6 +92,8 @@ namespace Sol {
         public void GetCombo(int combo = 1) {
             Combo += combo;
             ComboSystem.PopComboText(Combo);
+
+            MaxCombo = MaxCombo < Combo ? Combo : MaxCombo;
         }
 
         public void ResetCombo() {
