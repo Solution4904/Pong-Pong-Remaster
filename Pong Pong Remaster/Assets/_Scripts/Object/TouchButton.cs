@@ -41,8 +41,12 @@ namespace Sol {
 
                 GameManager.instance.GetScore();
                 GameManager.instance.GetCombo();
+
+                SoundManager.instance.PlayOnes(eSFXSound.Correct);
             } else {
                 GameManager.instance.ResetCombo();
+
+                SoundManager.instance.PlayOnes(eSFXSound.Wrong);
             }
         }
         #endregion

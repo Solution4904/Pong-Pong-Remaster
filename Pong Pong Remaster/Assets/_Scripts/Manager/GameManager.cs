@@ -77,9 +77,14 @@ namespace Sol {
             Countdown.StartCountDown(3);
 
             StartCoroutine(_difficultyChanger);
+
+            SoundManager.instance.PlayBGM();
         }
 
         public void GameOver() {
+            SoundManager.instance.PlayOnes(eSFXSound.GameOver);
+            SoundManager.instance.StopBGM();
+
             UIManager.instance.ShowPanel(ePanelType.Result);
             Time.timeScale = 0; // 임시
         }

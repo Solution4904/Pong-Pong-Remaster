@@ -24,4 +24,10 @@ namespace Sol {
     public enum eObjectType {
         ComboText,
     }
+
+    public enum eSFXSound {
+        Correct,
+        Wrong,
+        GameOver,
+    }
 }
