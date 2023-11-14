@@ -18,6 +18,7 @@ namespace Sol {
 
     public enum ePanelType {
         Result,
+        ClickToStart,
     }
 
     public enum eObjectType {

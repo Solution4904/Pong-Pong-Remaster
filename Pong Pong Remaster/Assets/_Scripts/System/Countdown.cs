@@ -26,17 +26,14 @@ namespace Sol {
 
         #region Essential Function
         private void Init() {
+            _countDownText.gameObject.SetActive(false);
             _countDownText.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
-            _countDownTextSequence = DOTween.Sequence()
-                .Append(_countDownText.transform.DOScale(new Vector3(2, 2, 2), 0.5f))
-                .Append(_countDownText.transform.DOScale(Vector3.one, 0.5f))
-                .SetLoops(-1)
-                .SetEase(Ease.OutSine);
         }
         #endregion
 
         #region Definition Function
         public void StartCountDown(float time, Action action = null) {
+            _countDownText.gameObject.SetActive(true);
             _waitTime = time;
             _waitAction = action;
             StartCoroutine(Counting());
@@ -46,7 +43,12 @@ namespace Sol {
             yield return null;
             UIManager.instance.BlockingScreen(true);
 
-            _countDownTextSequence.Play();
+            _countDownTextSequence = DOTween.Sequence()
+                .Append(_countDownText.transform.DOScale(new Vector3(2, 2, 2), 0.5f))
+                .Append(_countDownText.transform.DOScale(Vector3.one, 0.5f))
+                .SetLoops(-1)
+                .SetEase(Ease.OutSine);
+
             float divideTime = _waitTime;
             while (divideTime > 0) {
                 _countDownText.text = divideTime.ToString();
@@ -58,7 +60,7 @@ namespace Sol {
 
             _countDownText.gameObject.SetActive(false);
             UIManager.instance.BlockingScreen(false);
-            if (_waitAction != null)            _waitAction.Invoke();
+            if (_waitAction != null) _waitAction.Invoke();
         }
         #endregion
     }

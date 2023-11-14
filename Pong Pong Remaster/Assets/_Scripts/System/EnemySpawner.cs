@@ -21,23 +21,19 @@ namespace Sol {
         private void Awake() {
             Caching();
         }
-
-        private void Start() {
-            Init();
-        }
         #endregion
 
         #region Essential Function
         private void Caching() {
             _spawnCoroutine = Spawn();
         }
-
-        private void Init() {
-            StartCoroutine(_spawnCoroutine);
-        }
         #endregion
 
         #region Definition Function
+        public void SpawnStart() {
+            StartCoroutine(_spawnCoroutine);
+        }
+
         public void CreateEnemys() {
             for (int i = 0; i < 3; i++) {
                 _enemy.GetComponent<Enemy>().SetColor((eEnemyType)i);
