@@ -6,6 +6,9 @@ using UnityEngine;
 namespace Sol {
     public class EnemySpawner : MonoBehaviour_Singleton<EnemySpawner> {
         #region Variable
+        // # Components
+        [SerializeField] private Target _target;
+
         // # Objects
         [SerializeField] private GameObject _enemy;
         [SerializeField] private Transform _spawnTransform;
@@ -32,6 +35,8 @@ namespace Sol {
         #region Definition Function
         public void SpawnStart() {
             StartCoroutine(_spawnCoroutine);
+
+            _target.SetTraceTarget(_spawnedEnemys.Peek());
         }
 
         public void CreateEnemys() {
@@ -52,6 +57,8 @@ namespace Sol {
         public void DequeueSpawnedEnemyObject() {
             GameObject obj = _spawnedEnemys.Dequeue();
             obj.SetActive(false);
+
+            _target.SetTraceTarget(_spawnedEnemys.Peek());
         }
 
         public void DequeueSpawnedEnemyOfColor() {

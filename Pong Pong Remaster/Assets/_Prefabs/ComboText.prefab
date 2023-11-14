@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1 COMBO
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5a1b84c7bd2244b4188ea800909613ec, type: 2}
-  m_sharedMaterial: {fileID: 2446948887374687969, guid: 5a1b84c7bd2244b4188ea800909613ec, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a50e85261c47743468fb8649eced36e7, type: 2}
+  m_sharedMaterial: {fileID: -178917677106001470, guid: a50e85261c47743468fb8649eced36e7, type: 2}
   m_fontSharedMaterials:
   - {fileID: 2446948887374687969, guid: 5a1b84c7bd2244b4188ea800909613ec, type: 2}
   m_fontMaterial: {fileID: 0}
@@ -202,10 +202,10 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1 COMBO
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5a1b84c7bd2244b4188ea800909613ec, type: 2}
-  m_sharedMaterial: {fileID: 2446948887374687969, guid: 5a1b84c7bd2244b4188ea800909613ec, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a50e85261c47743468fb8649eced36e7, type: 2}
+  m_sharedMaterial: {fileID: -178917677106001470, guid: a50e85261c47743468fb8649eced36e7, type: 2}
   m_fontSharedMaterials:
-  - {fileID: 2446948887374687969, guid: 5a1b84c7bd2244b4188ea800909613ec, type: 2}
+  - {fileID: -178917677106001470, guid: a50e85261c47743468fb8649eced36e7, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -467,31 +467,31 @@ MonoBehaviour:
   enableOffsetFadeIn: 0
   offsetFadeIn: {x: 0.5, y: 0}
   enableScaleFadeIn: 1
-  scaleFadeIn: {x: 0, y: 0}
+  scaleFadeIn: {x: 1, y: 2}
   enableCrossScaleFadeIn: 0
   crossScaleFadeIn: {x: 1, y: 1.5}
-  enableShakeFadeIn: 0
+  enableShakeFadeIn: 1
   shakeOffsetFadeIn: {x: 0, y: 1.5}
-  shakeFrequencyFadeIn: 4
+  shakeFrequencyFadeIn: 2
   durationFadeOut: 0.2
   enableOffsetFadeOut: 0
   offsetFadeOut: {x: 0.5, y: 0}
   enableScaleFadeOut: 1
-  scaleFadeOut: {x: 1.75, y: 1.75}
-  enableCrossScaleFadeOut: 1
-  crossScaleFadeOut: {x: 1.1, y: 1.1}
-  enableShakeFadeOut: 0
-  shakeOffsetFadeOut: {x: 0, y: 1.5}
-  shakeFrequencyFadeOut: 4
-  enableLerp: 1
+  scaleFadeOut: {x: 0.6, y: 1.4}
+  enableCrossScaleFadeOut: 0
+  crossScaleFadeOut: {x: 1, y: 1.5}
+  enableShakeFadeOut: 1
+  shakeOffsetFadeOut: {x: 0, y: -1}
+  shakeFrequencyFadeOut: 2
+  enableLerp: 0
   lerpSettings:
     speed: 5
-    minX: -0.4
-    maxX: 0.4
-    minY: 0.4
-    maxY: 0.7
+    minX: -0.7
+    maxX: 0.7
+    minY: 1
+    maxY: 2
     randomFlip: 0
-  enableVelocity: 0
+  enableVelocity: 1
   velocitySettings:
     minX: -1
     maxX: 1
@@ -670,10 +670,10 @@ MonoBehaviour:
     absorberScaleFade: 15
     instantGain: 0
     bonusLifetime: 1
-  enableDestruction: 1
+  enableDestruction: 0
   destructionSettings:
     maxDistance: 2
-    spawnDelay: 0.3
+    spawnDelay: 0.2
     duration: 0.3
     scaleCurve:
       serializedVersion: 2
@@ -723,18 +723,18 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  enableCollision: 1
+  enableCollision: 0
   collisionSettings:
-    radius: 2
-    pushFactor: 0.5
-    desiredDirection: {x: 0, y: 2, z: 0}
+    radius: 0.5
+    pushFactor: 1
+    desiredDirection: {x: 0, y: 0, z: 0}
   enablePush: 0
   pushSettings:
     radius: 3
-    pushOffset: 1
+    pushOffset: 0.8
   updateDelay: 0.0125
   enablePooling: 0
   poolSize: 50
   disableOnSceneLoad: 1
-  editorLastFont: Neon-Blue
+  editorLastFont: Pixel-Shadow
   position: {x: 0, y: 0, z: 0}
