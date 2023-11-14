@@ -1,68 +1,32 @@
-using System.Collections;
 using UnityEngine;
 
 namespace Sol {
     public class Target : MonoBehaviour {
         #region Variable
-        // # Values
-        private float _time = 0.5f;
-        private bool _isTrace = false;
-
         // # Objects
-        private GameObject _target = null;
-        private SpriteRenderer _spriteRenderer;
-
-        private WaitForSeconds _blinkTime;
-        private IEnumerator _blinkCoroutine;
+        private GameObject _target;
         #endregion
 
         #region Life Cycle
-        private void Awake() {
-            Caching();
-        }
-
         private void Start() {
-            Init();
+            gameObject.SetActive(false);
         }
 
-        //private void FixedUpdate() {
-        //    TraceTarget();
-        //}
-        #endregion
-
-        #region Essential Function
-        private void Caching() {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-
-            _blinkTime = new WaitForSeconds(_time);
-        }
-
-        private void Init() {
-            _spriteRenderer.color = Color.clear;
+        private void FixedUpdate() {
+            TraceTarget();
         }
         #endregion
 
         #region Definition Function
-        public void SetTarget(GameObject value) {
-            _target = value;
-            _isTrace = true;
-
-            if (_blinkCoroutine != null) StopCoroutine(_blinkCoroutine);
-            _blinkCoroutine = BlinkEffect();
-            StartCoroutine(_blinkCoroutine);
+        public void SetTraceTarget(GameObject obj) {
+            _target = obj;
+            gameObject.SetActive(true);
         }
 
         private void TraceTarget() {
-            if (!_isTrace || !_target.activeInHierarchy || _target == null) return;
-            transform.position = _target.transform.position;
-        }
+            if (!_target || !_target.activeInHierarchy) return;
 
-        private IEnumerator BlinkEffect() {
-            while (true) {
-                _spriteRenderer.color = Color.white;
-                yield return _blinkTime;
-                _spriteRenderer.color = Color.clear;
-            }
+            transform.position = _target.transform.position;
         }
         #endregion
     }
