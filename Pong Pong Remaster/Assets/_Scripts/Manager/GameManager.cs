@@ -5,10 +5,10 @@ namespace Sol {
     public class GameManager : MonoBehaviour_Singleton<GameManager> {
         #region Variable
         // # Components
-        [field: SerializeField] public EnemySpawner EnemySpawner { get; private set; }
         [field: SerializeField] public ScoreSystem ScoreSystem { get; private set; }
         [field: SerializeField] public ComboSystem ComboSystem { get; private set; }
         [field: SerializeField] public Countdown Countdown { get; private set; }
+        [field: SerializeField] public GameStartPanel GameStartPanel { get; private set; }
 
         // # Values
         public int Score { get; private set; }
@@ -29,7 +29,7 @@ namespace Sol {
             }
             private set {
                 _enemySpawnDelay = value < 0.3f ? 0.3f : value;
-                EnemySpawner.SetSpawnDelay();
+                EnemySpawner.instance.SetSpawnDelay();
             }
         }
 
@@ -54,16 +54,25 @@ namespace Sol {
         }
 
         private void Init() {
-            GameStart();
-
-            Time.timeScale = 1; // 임시
+            WaitingToStart();
         }
         #endregion
 
         #region Definition Function
+        private void WaitingToStart() {
+            Time.timeScale = 1; // 임시
+            GameStartPanel.SetClickEvent(() => {
+                GameStart();
+                UIManager.instance.HidePanel();
+            });
+
+            UIManager.instance.ShowPanel(ePanelType.ClickToStart);
+        }
+
         public void GameStart() {
-            EnemySpawner.SetSpawnDelay();
-            EnemySpawner.CreateEnemys();
+            EnemySpawner.instance.SetSpawnDelay();
+            EnemySpawner.instance.CreateEnemys();
+            EnemySpawner.instance.SpawnStart();
             Countdown.StartCountDown(3);
 
             StartCoroutine(_difficultyChanger);

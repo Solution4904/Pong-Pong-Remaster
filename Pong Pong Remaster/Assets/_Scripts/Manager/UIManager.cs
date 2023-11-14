@@ -6,8 +6,11 @@ namespace Sol {
         #region Variable
         private GameObject _currentPanel;
         private Stack<GameObject> _panelStack = new();
-        [SerializeField] private GameObject _resultPanel;
+
+        // # Objects
         [SerializeField] private GameObject _blockingPanel;
+        [SerializeField] private GameObject _resultPanel;
+        [SerializeField] private GameObject _gameStartPanel;
         #endregion
 
         #region Life Cycle
@@ -24,17 +27,17 @@ namespace Sol {
         private void Init() {
             BlockingScreen(false);
 
-            _resultPanel.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             _blockingPanel.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+            _resultPanel.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+            _gameStartPanel.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         }
         #endregion
 
         #region Definition Function
         public void ShowPanel(ePanelType type) {
             switch (type) {
-                case ePanelType.Result:
-                    _currentPanel = _resultPanel;
-                    break;
+                case ePanelType.Result: _currentPanel = _resultPanel; break;
+                case ePanelType.ClickToStart: _currentPanel = _gameStartPanel; break;
             }
             _currentPanel.SetActive(true);
 
