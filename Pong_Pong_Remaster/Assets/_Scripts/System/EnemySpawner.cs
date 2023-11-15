@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UniRx;
 using UnityEngine;
 
 namespace Sol {
@@ -36,7 +35,7 @@ namespace Sol {
         public void SpawnStart() {
             StartCoroutine(_spawnCoroutine);
 
-            _target.SetTraceTarget(_spawnedEnemys.Peek());
+            ChoiceNextTarget();
         }
 
         public void CreateEnemys() {
@@ -56,9 +55,9 @@ namespace Sol {
 
         public void DequeueSpawnedEnemyObject() {
             GameObject obj = _spawnedEnemys.Dequeue();
-            obj.SetActive(false);
+            obj.GetComponent<Enemy>().Death();
 
-            _target.SetTraceTarget(_spawnedEnemys.Peek());
+            ChoiceNextTarget();
         }
 
         public void DequeueSpawnedEnemyOfColor() {
@@ -67,6 +66,10 @@ namespace Sol {
 
         public void EnqueueSpawnedEnemyOfColor(eEnemyType type) {
             _spawnedEnemyOfColor.Enqueue(type);
+        }
+
+        private void ChoiceNextTarget() {
+            _target.SetTraceTarget(_spawnedEnemys.Peek());
         }
 
         private eEnemyType RandomTypeToNumber() {

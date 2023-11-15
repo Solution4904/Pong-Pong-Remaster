@@ -1,5 +1,6 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Sol {
@@ -12,11 +13,8 @@ namespace Sol {
         public eEnemyType EnemyType;
         private bool _goForword = true;
 
-        // # Components
+        // # Componets
         private Animator _animator;
-
-        // # Resources
-        [SerializeField] private AnimatorController[] _animatorByColors;
         #endregion
 
         #region Life Cycle
@@ -28,17 +26,14 @@ namespace Sol {
             Init();
         }
 
-        private void Start() {
-            _animator.runtimeAnimatorController = _animatorByColors[(int)EnemyType];
-        }
-
-        private void FixedUpdate() {
+        private void LateUpdate() {
             Move();
         }
         #endregion
 
         #region Essential Function
         private void Init() {
+            StartCoroutine(AnimationControl(eEnemyAnimationState.Move));
             _goForword = true;
 
             SetRoadPointQueue();
@@ -68,6 +63,16 @@ namespace Sol {
             else SetNextDestinationAndDirection();
         }
 
+        public void Death() {
+            _goForword = false;
+
+            StartCoroutine(
+                AnimationControl(eEnemyAnimationState.Death,
+                () => {
+                    gameObject.SetActive(false);
+                }));
+        }
+
         private bool CheckArriveDestination() {
             return Vector3.Distance(_destination.position, transform.localPosition) > 0.1f;
         }
@@ -81,60 +86,22 @@ namespace Sol {
                 GameManager.instance.GameOver();
             }
         }
-        #endregion
 
+        private IEnumerator AnimationControl(eEnemyAnimationState state, Action action = null) {
+            switch (state) {
+                case eEnemyAnimationState.Move:
+                    _animator.SetInteger("Color", (int)EnemyType);
+                    break;
+                case eEnemyAnimationState.Death:
+                    _animator.SetTrigger("Death");
+                    yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.99f && _animator.GetCurrentAnimatorStateInfo(0).IsName($"{EnemyType}_Death"));
+                    action?.Invoke();
+                    break;
+                default: break;
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*#region Variable
-        public eColorType BallColor;
-        
-        [SerializeField] private Sprite[] _spriteArray;
-        private SpriteRenderer _spriteRenderer;
-        #endregion
-
-        #region Life Cycle
-        private void Awake() {
-            Caching();
-        }
-
-        private void Start() {
-            Init();
+            yield return null;
         }
         #endregion
-
-        #region Essential Function
-        private void Caching() {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-        }
-
-        private void Init() {
-            SetSprite();
-        }
-        #endregion
-
-        #region Definition Function
-        private void SetSprite() {
-            _spriteRenderer.sprite = _spriteArray[(int)BallColor];
-        }
-
-        public void SetColor(eColorType type) {
-            BallColor = type;
-        }
-        #endregion*/
     }
 }

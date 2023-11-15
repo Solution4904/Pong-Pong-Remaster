@@ -1,8 +1,8 @@
 namespace Sol {
     public enum eEnemyType {
-        BlueSlime,
-        GreenSlime,
-        RedSlime,
+        Blue,
+        Green,
+        Red,
     }
 
     public enum eGameLevel {
@@ -29,5 +29,10 @@ namespace Sol {
         Correct,
         Wrong,
         GameOver,
+    }
+
+    public enum eEnemyAnimationState {
+        Move,
+        Death,
     }
 }
