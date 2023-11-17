@@ -15,16 +15,16 @@ MonoBehaviour:
   colorDesigns:
   - keyChar: /
     textColor: {r: 1, g: 1, b: 1, a: 1}
-    backgroundColor: {r: 0.85882354, g: 0.39215687, b: 0.46613118, a: 1}
+    backgroundColor: {r: 0.754717, g: 0.40424716, b: 0.2171591, a: 1}
     textAlignment: 4
-    fontStyle: 3
+    fontStyle: 1
   - keyChar: //
+    textColor: {r: 1, g: 1, b: 1, a: 1}
+    backgroundColor: {r: 0, g: 0.10323961, b: 0.10323961, a: 1}
+    textAlignment: 4
+    fontStyle: 1
+  - keyChar: ///
     textColor: {r: 1, g: 1, b: 1, a: 1}
     backgroundColor: {r: 0, g: 0.6152477, b: 1, a: 1}
     textAlignment: 4
-    fontStyle: 3
-  - keyChar: ///
-    textColor: {r: 1, g: 1, b: 1, a: 1}
-    backgroundColor: {r: 0, g: 0.81960785, b: 0.3699304, a: 1}
-    textAlignment: 4
-    fontStyle: 3
+    fontStyle: 1
